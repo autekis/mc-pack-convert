@@ -1,0 +1,23 @@
+name: Convert Pack
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  packsquash:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run PackSquash
+        uses: ComunidadAylas/PackSquash-action@v0.4.1
+        with:
+          options_file: packsquash.toml
+
+      - name: Upload converted pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: converted-mcpack
+          path: build/pack.mcpack
