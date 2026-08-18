@@ -18,10 +18,9 @@ jobs:
           mkdir -p extracted_pack
           cp -r "$MCMETA_DIR"/* extracted_pack/
 
-      - name: Run PackSquash
-        uses: aylas-com/PackSquash-action@v0
-        with:
-          options_file: packsquash.toml
+      - name: Run PackSquash via Docker
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace ghcr.io/packsquash/packsquash:latest packsquash.toml
 
       - name: Upload converted pack
         uses: actions/upload-artifact@v4
