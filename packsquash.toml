@@ -1,4 +1,4 @@
-pack_directory = "UTAres v1.2.6b.zip"
+pack_directory = "pack.zip"
 output_file_path = "build/pack.mcpack"
 
 [options]
