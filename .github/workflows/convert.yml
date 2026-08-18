@@ -19,7 +19,7 @@ jobs:
           cp -r "$MCMETA_DIR"/* extracted_pack/
 
       - name: Run PackSquash
-        uses: PackSquash/packsquash-action@v1
+        uses: aylas-com/PackSquash-action@v0
         with:
           options_file: packsquash.toml
 
