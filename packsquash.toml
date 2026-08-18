@@ -1,0 +1,5 @@
+pack_directory = "UTAres v1.2.6b.zip"
+output_file_path = "build/pack.mcpack"
+
+[options]
+allow_be_conversion = true
