@@ -14,13 +14,18 @@ jobs:
       - name: Unzip Pack
         run: |
           unzip -q "pack.zip" -d temp_unzip
-          MCMETA_DIR=$(find temp_unzip -name "pack.mcmeta" -exec dirname {} \;)
+          # pack.mcmeta の場所を探して extracted_pack 直下に移動
+          MCMETA_PATH=$(find temp_unzip -name "pack.mcmeta" | head -n 1)
+          if [ -z "$MCMETA_PATH" ]; then
+            echo "ERROR: pack.mcmeta が zip 内に見つかりません。"
+            exit 1
+          fi
+          MCMETA_DIR=$(dirname "$MCMETA_PATH")
           mkdir -p extracted_pack
           cp -r "$MCMETA_DIR"/* extracted_pack/
 
       - name: Install & Run PackSquash
         run: |
-          # 最新のPackSquashバイナリを取得して実行
           curl -sSL https://github.com/PackSquash/PackSquash/releases/latest/download/packsquash-x86_64-unknown-linux-gnu.tar.gz | tar -xz
           chmod +x packsquash
           ./packsquash packsquash.toml
