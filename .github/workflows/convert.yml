@@ -11,6 +11,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Unzip Pack
+        run: unzip -q "pack.zip" -d extracted_pack
+
       - name: Run PackSquash
         uses: ComunidadAylas/PackSquash-action@v0.4.1
         with:
