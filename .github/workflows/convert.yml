@@ -12,7 +12,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Unzip Pack
-        run: unzip -q "pack.zip" -d extracted_pack
+        run: |
+          unzip -q "pack.zip" -d temp_unzip
+          # もし中身にフォルダが1重挟まっていた場合でも、pack.mcmetaがある場所を自動検出してextracted_packに配置する
+          MCMETA_DIR=$(find temp_unzip -name "pack.mcmeta" -exec dirname {} \;)
+          mkdir -p extracted_pack
+          cp -r "$MCMETA_DIR"/* extracted_pack/
 
       - name: Run PackSquash
         uses: ComunidadAylas/PackSquash-action@v0.4
