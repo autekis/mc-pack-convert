@@ -1,4 +1,4 @@
-pack_directory = "pack.zip"
+pack_directory = "extracted_pack"
 output_file_path = "build/pack.mcpack"
 
 [options]
