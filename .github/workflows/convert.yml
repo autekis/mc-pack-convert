@@ -13,16 +13,13 @@ jobs:
 
       - name: Unzip Pack
         run: |
-          unzip -q "pack.zip" -d temp_unzip
-          # pack.mcmeta の場所を探して extracted_pack 直下に移動
-          MCMETA_PATH=$(find temp_unzip -name "pack.mcmeta" | head -n 1)
-          if [ -z "$MCMETA_PATH" ]; then
-            echo "ERROR: pack.mcmeta が zip 内に見つかりません。"
-            exit 1
+          mkdir -p extracted_pack build
+          unzip -q "pack.zip" -d extracted_pack
+          
+          # もし extracted_pack 直下にフォルダが1つだけポツンとある場合はその中身を上階層に引き上げる
+          if [ $(ls -1 extracted_pack | wc -l) -eq 1 ] && [ -d extracted_pack/* ]; then
+            mv extracted_pack/*/* extracted_pack/ 2>/dev/null || true
           fi
-          MCMETA_DIR=$(dirname "$MCMETA_PATH")
-          mkdir -p extracted_pack
-          cp -r "$MCMETA_DIR"/* extracted_pack/
 
       - name: Install & Run PackSquash
         run: |
