@@ -15,7 +15,7 @@ jobs:
         run: unzip -q "pack.zip" -d extracted_pack
 
       - name: Run PackSquash
-        uses: ComunidadAylas/PackSquash-action@v0.4.1
+        uses: ComunidadAylas/PackSquash-action@v0.4
         with:
           options_file: packsquash.toml
 
